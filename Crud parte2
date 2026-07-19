@@ -1,0 +1,222 @@
+//Proyecto Programacion Musica
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Cancion {
+	string codigo;           
+	string titulo;           
+	string artista;          
+	string genero;           
+	int anioLanzamiento;     
+	double duracionMinutos;  
+	bool favorita;           
+};
+
+vector<Cancion> canciones;
+const string ARCHIVO = "canciones.txt";
+
+
+void cargarDesdeArchivo() {
+	canciones.clear();
+	ifstream file(ARCHIVO);
+	string linea;
+	
+	while (getline(file, linea)) {
+		if (linea.empty()) continue;
+		
+		stringstream ss(linea);
+		string codigo, titulo, artista, genero, anioStr, duracionStr, favStr;
+		getline(ss, codigo, ';');
+		getline(ss, titulo, ';');
+		getline(ss, artista, ';');
+		getline(ss, genero, ';');
+		getline(ss, anioStr, ';');
+		getline(ss, duracionStr, ';');
+		getline(ss, favStr, ';');
+		
+		Cancion c;
+		c.codigo = codigo;
+		c.titulo = titulo;
+		c.artista = artista;
+		c.genero = genero;
+		c.anioLanzamiento = stoi(anioStr);
+		c.duracionMinutos = stod(duracionStr);
+		c.favorita = (favStr == "1");
+		
+		canciones.push_back(c);
+	}
+	file.close();
+}
+
+void guardarEnArchivo() {
+	ofstream file(ARCHIVO, ios::trunc);
+	for (const auto& c : canciones) {
+		file << c.codigo << ";" << c.titulo << ";" << c.artista << ";"
+		<< c.genero << ";" << c.anioLanzamiento << ";" << c.duracionMinutos << ";"
+		<< (c.favorita ? "1" : "0") << "\n";
+	}
+	file.close();
+}
+
+
+Cancion* buscarPorCodigo(const string& codigo) {
+	for (auto& c : canciones) {
+		if (c.codigo == codigo) return &c;
+	}
+	return nullptr;
+}
+
+void crear() {
+	Cancion c;
+	
+	cout << "Codigo (ej: 001): ";
+	getline(cin, c.codigo);
+	
+	if (buscarPorCodigo(c.codigo) != nullptr) {
+		cout << "Ya existe una cancion con ese codigo. No se creo nada.\n";
+		return;
+	}
+	
+	cout << "Titulo: ";
+	getline(cin, c.titulo);
+	cout << "Artista: ";
+	getline(cin, c.artista);
+	cout << "Genero: ";
+	getline(cin, c.genero);
+	
+	cout << "Anio de lanzamiento: ";
+	cin >> c.anioLanzamiento;
+	cout << "Duracion en minutos (ej: 3.45): ";
+	cin >> c.duracionMinutos;
+	cin.ignore();
+	
+	cout << "Es favorita? (s/n): ";
+	string resp;
+	getline(cin, resp);
+	c.favorita = (resp == "s" || resp == "S");
+	
+	canciones.push_back(c);
+	guardarEnArchivo();
+	
+	cout << "Cancion creada con codigo " << c.codigo << "\n";
+}
+
+void listar() {
+	if (canciones.empty()) {
+		cout << "No hay canciones registradas.\n";
+		return;
+	}
+	for (const auto& c : canciones) {
+		cout << "Codigo: " << c.codigo
+		<< " | Titulo: " << c.titulo
+		<< " | Artista: " << c.artista
+		<< " | Genero: " << c.genero
+		<< " | Anio: " << c.anioLanzamiento
+		<< " | Duracion: " << c.duracionMinutos << " min"
+		<< " | Favorita: " << (c.favorita ? "Si" : "No")
+		<< "\n";
+	}
+}
+
+void buscar() {
+	cout << "Codigo a buscar: ";
+	string codigo;
+	getline(cin, codigo);
+	
+	Cancion* c = buscarPorCodigo(codigo);
+	if (c == nullptr) {
+		cout << "No se encontro una cancion con ese codigo.\n";
+		return;
+	}
+	
+	cout << "Titulo: " << c->titulo << "\n";
+	cout << "Artista: " << c->artista << "\n";
+	cout << "Genero: " << c->genero << "\n";
+	cout << "Anio: " << c->anioLanzamiento << "\n";
+	cout << "Duracion: " << c->duracionMinutos << " min\n";
+	cout << "Favorita: " << (c->favorita ? "Si" : "No") << "\n";
+}
+
+void actualizar() {
+	cout << "Codigo de la cancion a editar: ";
+	string codigo;
+	getline(cin, codigo);
+	
+	Cancion* c = buscarPorCodigo(codigo);
+	if (c == nullptr) {
+		cout << "No se encontro una cancion con ese codigo.\n";
+		return;
+	}
+	
+	cout << "Nuevo titulo: ";
+	getline(cin, c->titulo);
+	cout << "Nuevo artista: ";
+	getline(cin, c->artista);
+	cout << "Nuevo genero: ";
+	getline(cin, c->genero);
+	
+	cout << "Nuevo anio: ";
+	cin >> c->anioLanzamiento;
+	cout << "Nueva duracion en minutos: ";
+	cin >> c->duracionMinutos;
+	cin.ignore();
+	
+	cout << "Es favorita? (s/n): ";
+	string resp;
+	getline(cin, resp);
+	c->favorita = (resp == "s" || resp == "S");
+	
+	guardarEnArchivo();
+	cout << "Cancion actualizada.\n";
+}
+
+void eliminar() {
+	cout << "Codigo de la cancion a eliminar: ";
+	string codigo;
+	getline(cin, codigo);
+	
+	for (size_t i = 0; i < canciones.size(); i++) {
+		if (canciones[i].codigo == codigo) {
+			canciones.erase(canciones.begin() + i);
+			guardarEnArchivo();
+			cout << "Cancion eliminada.\n";
+			return;
+		}
+	}
+	cout << "No se encontro una cancion con ese codigo.\n";
+}
+
+
+int main() {
+	cargarDesdeArchivo();
+	
+	int opcion;
+	do {
+		cout << "\n--- MENU CANCIONES ---\n";
+		cout << "1. Crear cancion\n";
+		cout << "2. Listar canciones\n";
+		cout << "3. Buscar cancion por codigo\n";
+		cout << "4. Actualizar cancion\n";
+		cout << "5. Eliminar cancion\n";
+		cout << "0. Salir\n";
+		cout << "Opcion: ";
+		cin >> opcion;
+		cin.ignore();
+		
+		switch (opcion) {
+			case 1: crear(); break;
+			case 2: listar(); break;
+			case 3: buscar(); break;
+			case 4: actualizar(); break;
+			case 5: eliminar(); break;
+			case 0: cout << "Chao!\n"; break;
+			default: cout << "Opcion invalida.\n";
+		}
+	} while (opcion != 0);
+	
+	return 0;
+}
