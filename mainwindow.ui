@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>850</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gestor de Musica</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabs">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>831</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>BusyCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #2c3e50;</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tabCanciones">
+     <attribute name="title">
+      <string>Canciones</string>
+     </attribute>
+     <widget class="QLabel" name="labelListaCanciones">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>296</y>
+        <width>147</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Canciones registradas:</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tablaCanciones">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>323</y>
+        <width>802</width>
+        <height>157</height>
+       </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>Codigo</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Titulo</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Artista</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Genero</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Anio</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Duracion</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Favorita</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>0</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Curlz MT</family>
+        <pointsize>28</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>HeidLine 📯</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>791</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayoutCancion">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelCodigo">
+         <property name="text">
+          <string>Codigo:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="leCodigo"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelTitulo">
+         <property name="text">
+          <string>Titulo:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="leTitulo"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelArtista">
+         <property name="text">
+          <string>Artista:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="leArtista"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelGenero">
+         <property name="text">
+          <string>Genero:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="filaGeneroLayout">
+         <item>
+          <widget class="QLineEdit" name="leGenero">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string>Elige una categoria...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnElegirCategoria">
+           <property name="text">
+            <string>Categoria...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelAnio">
+         <property name="text">
+          <string>Anio:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="leAnio"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="labelDuracion">
+         <property name="text">
+          <string>Duracion (min):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="leDuracion"/>
+       </item>
+       <item row="6" column="1">
+        <widget class="QCheckBox" name="chkFavorita">
+         <property name="text">
+          <string>Es favorita</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="btnCrearCancion">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>259</y>
+        <width>80</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Crear</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnActualizarCancion">
+      <property name="geometry">
+       <rect>
+        <x>99</x>
+        <y>259</y>
+        <width>82</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Actualizar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnEliminarCancion">
+      <property name="geometry">
+       <rect>
+        <x>188</x>
+        <y>259</y>
+        <width>80</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eliminar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnLimpiarCancion">
+      <property name="geometry">
+       <rect>
+        <x>275</x>
+        <y>259</y>
+        <width>80</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Limpiar</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabCategorias">
+     <attribute name="title">
+      <string>Categorias</string>
+     </attribute>
+     <layout class="QVBoxLayout" name="verticalLayoutCategorias">
+      <item>
+       <widget class="QLabel" name="labelCategoriasDisponibles">
+        <property name="text">
+         <string>Categorias disponibles:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listaCategorias"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="filaEntradaCategoriaLayout">
+        <item>
+         <widget class="QLineEdit" name="leNombreCategoria">
+          <property name="placeholderText">
+           <string>Nombre de la categoria</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCrearCategoria">
+          <property name="text">
+           <string>Crear</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="filaBotonesCategoriaLayout">
+        <item>
+         <widget class="QPushButton" name="btnActualizarCategoria">
+          <property name="text">
+           <string>Actualizar seleccionada</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnEliminarCategoria">
+          <property name="text">
+           <string>Eliminar seleccionada</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnUsarCategoria">
+        <property name="text">
+         <string>Usar en la cancion y volver</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>850</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
